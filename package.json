@@ -1,0 +1,33 @@
+{
+  "name": "git-profile",
+  "version": "0.0.1",
+  "description": "Easily configure a git repo for multiple git accounts (work, github-public, private project etc)",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sramam/git-profile.git"
+  },
+  "bin": "index.js",
+  "keywords": [
+    "git",
+    "configuration",
+    "multiple",
+    "accounts"
+  ],
+  "author": "sramam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sramam/git-profile/issues"
+  },
+  "homepage": "https://github.com/sramam/git-profile#readme",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "commander": "^2.9.0",
+    "expand-home-dir": "0.0.2",
+    "inquirer": "^0.12.0",
+    "shelljs": "^0.6.0"
+  }
+}
