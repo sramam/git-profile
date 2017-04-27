@@ -30,14 +30,14 @@ function selectProfile() {
     console.log(chalk.yellow('~/.gitprofiles is empty or not found'));
     return -1;
   } 
-  profileNames.push('other');
+  profileNames.push('exit');
   inquirer.prompt({
     type: 'list',
     message: 'Pick a git profile to switch to:',
     name: 'profile',
     choices: profileNames
   }, function proc(answers) {
-    if (answers.profile === 'other') {
+    if (answers.profile === 'exit') {
       return;
     }
     var picked = profiles[answers.profile];
