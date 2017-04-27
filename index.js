@@ -6,11 +6,9 @@ var sh = require('shelljs');
 var fs = require('fs');
 var chalk = require('chalk');
 var expander = require('expand-home-dir');
-var profileKeys = require('./git-profile-keys');
 
 function getProfiles(fname) {
   fname = fname || '~/.gitprofiles';
-  var gitProfiles = null;
   try {
     return JSON.parse(fs.readFileSync(expander(fname)));
   } catch (err) {
