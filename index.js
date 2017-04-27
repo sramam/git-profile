@@ -41,11 +41,11 @@ function selectProfile() {
       return;
     }
     var picked = profiles[answers.profile];
-    var global = (answers.profile === 'global') ? '--global' : '';
+    var globalFlag = (answers.profile === 'global') ? '--global' : '';
     Object.keys(picked).map(function(key) {
-      sh.exec('git config ' + global + ' ' + key + ' ' + picked[key]);
+      sh.exec('git config ' + globalFlag + ' ' + key + ' ' + picked[key]);
     });
-    sh.exec('git config -l ' + global);
+    sh.exec('git config -l ' + globalFlag);
   });
 }
 
