@@ -28,7 +28,7 @@ function selectProfile() {
   var profileNames = profiles === null ? [] : Object.keys(profiles);
   if (profileNames.length === 0) {
     console.log(chalk.yellow('~/.gitprofiles is empty or not found'));
-    return;
+    return -1;
   } 
   profileNames.push('other');
   inquirer.prompt({
