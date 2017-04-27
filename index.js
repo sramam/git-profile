@@ -43,6 +43,7 @@ function selectProfile() {
     var picked = profiles[answers.profile];
     var globalFlag = (answers.profile === 'global') ? '--global' : '';
     Object.keys(picked).map(function(key) {
+      sh.exec('git config --unset-all ' + key);
       sh.exec('git config ' + globalFlag + ' ' + key + ' ' + picked[key]);
     });
     sh.exec('git config -l ' + globalFlag);
