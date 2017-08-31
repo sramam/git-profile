@@ -36,7 +36,7 @@ function selectProfile() {
     message: 'Pick a git profile to switch to:',
     name: 'profile',
     choices: profileNames
-  }, function proc(answers) {
+  }).then(function proc(answers) {
     if (answers.profile === 'exit') {
       return;
     }
