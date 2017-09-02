@@ -6,11 +6,9 @@ var sh = require('shelljs');
 var fs = require('fs');
 var chalk = require('chalk');
 var expander = require('expand-home-dir');
-var profileKeys = require('./git-profile-keys');
 
 function getProfiles(fname) {
   fname = fname || '~/.gitprofiles';
-  var gitProfiles = null;
   try {
     return JSON.parse(fs.readFileSync(expander(fname)));
   } catch (err) {
@@ -30,24 +28,25 @@ function selectProfile() {
   var profileNames = profiles === null ? [] : Object.keys(profiles);
   if (profileNames.length === 0) {
     console.log(chalk.yellow('~/.gitprofiles is empty or not found'));
-    return;
+    return -1;
   } 
-  profileNames.push('other');
+  profileNames.push('exit');
   inquirer.prompt({
     type: 'list',
     message: 'Pick a git profile to switch to:',
     name: 'profile',
     choices: profileNames
-  }, function proc(answers) {
-    if (answers.profile === 'other') {
+  }).then(function proc(answers) {
+    if (answers.profile === 'exit') {
       return;
     }
     var picked = profiles[answers.profile];
-    var global = (answers.profile === 'global') ? '--global' : '';
+    var globalFlag = (answers.profile === 'global') ? '--global' : '';
     Object.keys(picked).map(function(key) {
-      sh.exec('git config ' + global + ' ' + key + ' ' + picked[key]);
+      sh.exec('git config --unset-all ' + key);
+      sh.exec('git config ' + globalFlag + ' ' + key + ' ' + picked[key]);
     });
-    sh.exec('git config -l ' + global);
+    sh.exec('git config -l ' + globalFlag);
   });
 }
 
