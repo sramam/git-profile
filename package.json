@@ -1,6 +1,6 @@
 {
   "name": "git-profile",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Easily configure a git repo for multiple git accounts (work, github-public, private project etc)",
   "main": "index.js",
   "scripts": {
