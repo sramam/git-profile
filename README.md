@@ -17,12 +17,12 @@ other git config settings should work.
     $ cat ~/.gitprofiles
     {
       "work": {
-        "user.name": "John Doe"
+        "user.name": "John Doe",
         "user.email": "john@company.com",
         "core.editor": "intellij"
       },
       "github": {
-        "user.name": "jdoe"
+        "user.name": "jdoe",
         "user.email": "john@gmail.com",
         "core.editor": "atom"
       }
