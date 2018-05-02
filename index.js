@@ -1,5 +1,3 @@
-#! /usr/bin/env node
-
 var inquirer = require('inquirer');
 var program = require('commander');
 var sh = require('shelljs');
@@ -8,7 +6,6 @@ var chalk = require('chalk');
 var expander = require('expand-home-dir');
 
 function getProfiles(fname) {
-  fname = fname || '~/.gitprofiles';
   try {
     return JSON.parse(fs.readFileSync(expander(fname)));
   } catch (err) {
@@ -23,37 +20,43 @@ function getProfiles(fname) {
   }
 }
 
+function quoteForShell(value) {
+  return "'" + value.replace("'", "\\'") + "'";
+}
+
 function selectProfile() {
   var profiles = getProfiles('~/.gitprofiles');
   var profileNames = profiles === null ? [] : Object.keys(profiles);
   if (profileNames.length === 0) {
     console.log(chalk.yellow('~/.gitprofiles is empty or not found'));
     return -1;
-  } 
+  }
   profileNames.push('exit');
-  inquirer.prompt({
+  return inquirer.prompt({
     type: 'list',
     message: 'Pick a git profile to switch to:',
     name: 'profile',
     choices: profileNames
   }).then(function proc(answers) {
     if (answers.profile === 'exit') {
-      return;
+      return 0;
     }
     var picked = profiles[answers.profile];
     var globalFlag = (answers.profile === 'global') ? '--global' : '';
     Object.keys(picked).map(function(key) {
+      var value = picked[key];
       sh.exec('git config --unset-all ' + key);
-      sh.exec('git config ' + globalFlag + ' ' + key + ' ' + picked[key]);
+      sh.exec('git config ' + globalFlag + ' ' + key + ' ' + quoteForShell(value));
     });
     sh.exec('git config -l ' + globalFlag);
+    return 0;
   });
 }
 
 /*
 function createProfile() {
   var profiles = [];
-  try { 
+  try {
     profiles = JSON.parse(fs.readFileSync(expander(fname)));
   } catch (err) {
     // ignore error
@@ -72,7 +75,7 @@ function createProfile() {
     type: 'input',
     name: 'profileName',
     when: function when(answers) {
-      return ( profileList.length <= 1 ) || 
+      return ( profileList.length <= 1 ) ||
              ( answers.picked === 'other' );
     }
   }]
@@ -85,4 +88,6 @@ function deleteProfile() {
 }
 */
 
-selectProfile();
+module.exports = {
+  selectProfile: selectProfile
+};
