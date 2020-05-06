@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "watch": "jest --watch"
+    "watch": "jest --watch",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -29,9 +31,11 @@
     "commander": "^2.11.0",
     "expand-home-dir": "0.0.3",
     "inquirer": "^3.2.3",
-    "shelljs": "^0.7.8"
+    "shelljs": "^0.7.8",
+    "snyk": "^1.319.0"
   },
   "devDependencies": {
     "jest": "^22.4.3"
-  }
+  },
+  "snyk": true
 }
