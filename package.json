@@ -29,7 +29,7 @@
     "commander": "^2.11.0",
     "expand-home-dir": "0.0.3",
     "inquirer": "^3.2.3",
-    "shelljs": "^0.7.8"
+    "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "jest": "^22.4.3"
